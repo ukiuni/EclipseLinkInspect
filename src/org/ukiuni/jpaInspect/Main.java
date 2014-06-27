@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -20,12 +21,13 @@ public class Main {
 		
 		{
 			System.out.println("insert start");
-			em.getTransaction().begin();
+			EntityTransaction entityTransaction = em.getTransaction();
+			entityTransaction.begin();
 			MyEntity myEntity = new MyEntity();
 			myEntity.setText("This is a Test text");
 			myEntity.setCreatedAt(new Date());
 			em.persist(myEntity);
-			em.getTransaction().commit();
+			entityTransaction.commit();
 			System.out.println("insert end generated id = " + myEntity.getId());
 		}
 		{
